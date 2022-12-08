@@ -3,13 +3,21 @@ import User from './User';
 
 export default class UsersController {
 
-    async index({ response }: HttpContextContract) {
+    async index({ request, response }: HttpContextContract) {
+
+        const { skip, limit } = request.qs();
 
         try {
-            const users = await User.find({ status: true });
+            const [ total, users ] = await Promise.all([
+                User.countDocuments({ status: true }),
+                User.find({ status: true })
+                    .skip(Number(skip))
+                    .limit(Number(limit))
+            ]);
 
             response.status(200).json({
                 ok: true,
+                total,
                 users
             });
             

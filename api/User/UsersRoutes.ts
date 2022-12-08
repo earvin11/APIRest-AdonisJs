@@ -4,7 +4,7 @@ import UsersController from './UsersController';
 
 const UsersRoutes = async() => {
     const controller = new UsersController();
-    Route.get('/', (ctx) => controller.index(ctx));
+    Route.get('/', (ctx) => controller.index(ctx)).middleware('paginationParams');
     Route.get('/:id', (ctx) => controller.show(ctx));
     Route.post('/', (ctx) => controller.store(ctx)).middleware(['userRequest', 'emailExists']);
     Route.put('/:id', (ctx) => controller.update(ctx));

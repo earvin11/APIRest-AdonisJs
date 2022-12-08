@@ -1,38 +1,40 @@
 import type { HttpContextContract } from '@ioc:Adonis/Core/HttpContext'
+import { schema, rules } from '@ioc:Adonis/Core/Validator'
 
 export default class UserRequest {
   public async handle({ request, response }: HttpContextContract, next: () => Promise<void>) {
-    // code for middleware goes here. ABOVE THE NEXT CALL
-    const { name, email, password, role } = request.body();
+     /**
+   * Step 1 - Define schema
+   */
 
-    if(!name){
-      return response.status(400).json({
-        ok: false,
-        msg: 'name is required'
+    const userSchema = schema.create({
+      name: schema.string(),
+      email: schema.string([
+        rules.email()
+      ]),
+      password: schema.string([
+        rules.minLength(4)
+      ]),
+      role: schema.string(),
+    });
+  
+    try {
+      /**
+       * Step 2 - Validate request body against
+       *          the schema
+       */
+      const payload = await request.validate({
+        schema: userSchema
       });
+
+      await next();
+
+    } catch (error) {
+      /**
+       * Step 3 - Handle errors
+       */
+      response.badRequest(error.messages);
     }
 
-    if(!email){
-      return response.status(400).json({
-        ok: false,
-        msg: 'email is required'
-      });
-    }
-
-    if(!password){
-      return response.status(400).json({
-        ok: false,
-        msg: 'password is required'
-      });
-    }
-
-    if(!role){
-      return response.status(400).json({
-        ok: false,
-        msg: 'role is required'
-      });
-    }
-
-    await next()
   }
 }

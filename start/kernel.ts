@@ -42,5 +42,6 @@ Server.middleware.register([
 */
 Server.middleware.registerNamed({
   emailExists: () => import('App/Middleware/EmailExist'),
+  paginationParams: () => import('App/Middleware/PaginationParam'),
   userRequest: () => import('App/Middleware/UserRequest'),
 });
