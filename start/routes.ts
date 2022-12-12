@@ -19,6 +19,7 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
+import CategoriesRoutes from '../api/Category/CategoryRoutes';
 import UsersRoutes from '../api/User/UsersRoutes';
 
 Route.get('/', async () => {
@@ -29,6 +30,7 @@ Route.get('/', async () => {
 const ApiRoutes = async() => {
 
   Route.group(UsersRoutes).prefix('users');
+  Route.group( CategoriesRoutes ).prefix('categories');
 
 };
 
