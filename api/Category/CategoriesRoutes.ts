@@ -1,5 +1,5 @@
 import Route from '@ioc:Adonis/Core/Route';
-import CategoriesController from './CategoryController';
+import CategoriesController from './CategoriesController';
 
 
 const CategoriesRoutes = async() => {
