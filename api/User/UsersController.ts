@@ -12,6 +12,7 @@ export default class UsersController {
             const [ total, users ] = await Promise.all([
                 User.countDocuments({ status: true }),
                 User.find({ status: true })
+                    .populate('role', 'name')
                     .skip(Number(skip))
                     .limit(Number(limit))
             ]);
@@ -38,7 +39,8 @@ export default class UsersController {
 
         try {
 
-            const user = await User.findById( id );
+            const user = await User.findById( id )
+                            .populate('role', 'name');
 
             response.status(200).json({
                 ok: true,

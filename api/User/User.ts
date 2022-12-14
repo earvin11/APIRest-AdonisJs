@@ -23,9 +23,9 @@ const UserSchema = new Schema({
         type: String,
     },
     role: {
-        type: String,
-        required: true,
-        emun: ['ADMIN_ROLE', 'USER_ROLE']
+        type: Schema.Types.ObjectId,
+        ref: 'Role',
+        required: [ true, 'User role is required' ]
     },
     status: {
         type: Boolean,
