@@ -41,7 +41,10 @@ Server.middleware.register([
 |
 */
 Server.middleware.registerNamed({
-  emailExists: () => import('App/Middleware/EmailExist'),
+  emailExists: () => import('App/Middleware/User/EmailExist'),
   paginationParams: () => import('App/Middleware/PaginationParam'),
-  userRequest: () => import('App/Middleware/UserRequest'),
+  userRequest: () => import('App/Middleware/User/UserRequest'),
+  productRequest: () => import('App/Middleware/Products/ProductRequest'),
+  categoryRequest: () => import('App/Middleware/Category/CategoryRequest'),
+  roleRequest: () => import('App/Middleware/Role/RoleRequest')
 });

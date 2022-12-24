@@ -15,7 +15,7 @@ export default class PaginationParam {
     if(!limit) {
       return response.status(400).json({
         ok: false,
-        msg: 'Limiti is required'
+        msg: 'Limit is required'
       });
     }
 
