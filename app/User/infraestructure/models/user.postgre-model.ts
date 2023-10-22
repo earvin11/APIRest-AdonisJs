@@ -1,11 +1,11 @@
 import { BaseModel, beforeCreate, column } from '@ioc:Adonis/Lucid/Orm'
+import { GenerateUuid } from 'App/Shared/adapters/uuid.adapter';
 import { DateTime } from 'luxon';
-import { v4 as uuid } from 'uuid'
 
 export default class User extends BaseModel {
   // Indique al modelo que utilice una conexión de base de datos
   // personalizada definida dentro del config/databasearchivo.
-  public static connection = 'pg';
+  // public static connection = 'pg';
   public static selfAssignPrimaryKey = true;
 
   @column({ isPrimary: true })
@@ -29,6 +29,10 @@ export default class User extends BaseModel {
   @column()
   public role: string;
 
+  // //TODO:
+  // @hasOne(() => RolePgModel)
+  // public role: HasOne<typeof RolePgModel>;
+
   @column()
   public status: boolean;
 
@@ -40,6 +44,6 @@ export default class User extends BaseModel {
 
   @beforeCreate()// Reemplaza el id por uuid
   public static assignUuid(user: User) {
-    user.id = uuid();
+    user.id = new GenerateUuid().uuid;
   }
 };

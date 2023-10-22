@@ -1,4 +1,4 @@
-import { UserEntity } from '../../domain/entities/user.entity';
+import { UpdateUserDto, UserEntity } from '../../domain/entities/user.entity';
 import { UserRepostory } from '../../domain/user.repository';
 import UserModelPg from '../models/user.postgre-model';
 
@@ -14,17 +14,40 @@ export class UserPostgreRepository implements UserRepostory {
             throw error;
         }
     };
-    public getAllUsers = (): Promise<UserEntity[]> => {
-        throw  new Error('Method not implemented.');
+    public getAllUsers = async (): Promise<UserEntity[]> => {
+        try {
+            const users = await UserModelPg.all();
+            return users;
+        } catch (error) {
+            throw error;
+        }
     };
-    public getUserById = (id: string): Promise<UserEntity  | null> => {
-        throw new Error('Method not implemented.');
+    public getUserById = async (id: string): Promise<UserEntity  | null> => {
+        try {
+            const user = await UserModelPg.find(id);
+            return user;
+        } catch (error) {
+            throw error;
+        }
     };
-    public updateUser = (id: string): Promise<UserEntity  | null> => {
-        throw new Error('Method not implemented.');
+    public updateUser = async (id: string, updateUserDto: UpdateUserDto): Promise<UserEntity  | null> => {
+        try {
+            const user = await UserModelPg.findOrFail(id);
+            return await user
+                .merge(updateUserDto)
+                .save()
+        } catch (error) {
+            throw error;
+        }
     };
-    public deleteUser = (id: string): Promise<UserEntity  | null> => {
-        throw new Error('Method not implemented.');
+    public deleteUser = async (id: string): Promise<UserEntity  | null> => {
+        try {
+            const user = await UserModelPg.findOrFail(id);
+            user.status = false;
+            return await user.save();
+        } catch (error) {
+            throw error;
+        }
     };
 
 };

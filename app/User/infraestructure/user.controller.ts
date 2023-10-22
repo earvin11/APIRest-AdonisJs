@@ -41,13 +41,7 @@ export class UserController {
             const users = await this.userUseCases.getAllUsers();
             response.ok({
                 users
-            });
-
-            // const users = await Database
-            //     .query()  // 👈 gives an instance of select query builder
-            //     .from('users')
-            //     .select('*')
-            // response.ok({usersPg: users})      
+            });      
         } catch (error) {
             console.log(error);
             response.internalServerError({ message: 'Talk to administrator' });

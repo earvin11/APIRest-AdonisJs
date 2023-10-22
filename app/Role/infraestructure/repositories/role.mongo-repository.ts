@@ -3,9 +3,9 @@ import { RoleRepository } from 'App/Role/domain/role.repository';
 import RoleModel from '../models/role.mongo-model';
 
 export class RoleMongoRepository implements RoleRepository {
-    public createRole = async (rol: RoleEntity): Promise<RoleEntity> => {
+    public createRole = async (role: RoleEntity): Promise<RoleEntity> => {
         try {
-            const newRole = await RoleModel.create(rol);
+            const newRole = await RoleModel.create(role);
             return newRole; 
         } catch (error) {
             throw error;
