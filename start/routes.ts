@@ -23,8 +23,9 @@ import CategoriesRoutes from '../api/Category/CategoriesRoutes';
 // import UsersRoutes from '../api/User/UsersRoutes';
 import ProductsRoutes from '../api/Products/ProductsRoutes';
 import AuthRoutes from '../api/Auth/AuthRoutes';
-import RolesRoutes from '../api/Role/RolesRoutes';
+// import RolesRoutes from '../api/Role/RolesRoutes';
 import UserRoutes from 'App/User/infraestructure/user.routes';
+import RoleRoutes from 'App/Role/infraestructure/role.routes';
 
 Route.get('/', async () => {
   return { hello: 'world' }
@@ -34,7 +35,7 @@ Route.get('/', async () => {
 const ApiRoutes = async() => {
 
   Route.group(AuthRoutes).prefix('auth');
-  Route.group(RolesRoutes).prefix('roles');
+  Route.group(RoleRoutes).prefix('roles');
   Route.group(UserRoutes).prefix('users');
   Route.group(CategoriesRoutes).prefix('categories');
   Route.group(ProductsRoutes).prefix('products');
