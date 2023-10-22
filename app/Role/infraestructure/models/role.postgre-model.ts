@@ -1,6 +1,6 @@
-import { BaseModel, beforeCreate, column } from '@ioc:Adonis/Lucid/Orm';
+import { BaseModel, HasMany, column, hasMany } from '@ioc:Adonis/Lucid/Orm';
 import { DateTime } from 'luxon';
-import { GenerateUuid } from 'App/Shared/adapters/uuid.adapter';
+import UserPgModel from 'App/User/infraestructure/models/user.postgre-model';
 
 export default class Role extends BaseModel {
     public static connection = 'pg';
@@ -15,15 +15,12 @@ export default class Role extends BaseModel {
     @column()
     status: boolean;
 
+    @hasMany(() => UserPgModel)
+    public users: HasMany<typeof UserPgModel>;
+
     @column.dateTime({ autoCreate: true })
     public createdAt: DateTime;
 
     @column.dateTime({ autoCreate: true, autoUpdate: true })
     public updatedAt: DateTime;
-
-    @beforeCreate()
-    public static assignUuid(role: Role) {
-      role.id = new GenerateUuid().uuid;
-    }
-
 };

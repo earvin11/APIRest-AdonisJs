@@ -19,13 +19,15 @@
 */
 
 import Route from '@ioc:Adonis/Core/Route'
-import CategoriesRoutes from '../api/Category/CategoriesRoutes';
+// import CategoriesRoutes from '../api/Category/CategoriesRoutes';
 // import UsersRoutes from '../api/User/UsersRoutes';
-import ProductsRoutes from '../api/Products/ProductsRoutes';
+// import ProductsRoutes from '../api/Products/ProductsRoutes';
 import AuthRoutes from '../api/Auth/AuthRoutes';
 // import RolesRoutes from '../api/Role/RolesRoutes';
 import UserRoutes from 'App/User/infraestructure/user.routes';
 import RoleRoutes from 'App/Role/infraestructure/role.routes';
+import ProductRoutes from 'App/Products/infraestructure/product.routes';
+import CategoryRoutes from 'App/Category/infraestructure/category.routes';
 
 Route.get('/', async () => {
   return { hello: 'world' }
@@ -37,8 +39,8 @@ const ApiRoutes = async() => {
   Route.group(AuthRoutes).prefix('auth');
   Route.group(RoleRoutes).prefix('roles');
   Route.group(UserRoutes).prefix('users');
-  Route.group(CategoriesRoutes).prefix('categories');
-  Route.group(ProductsRoutes).prefix('products');
+  Route.group(CategoryRoutes).prefix('categories');
+  Route.group(ProductRoutes).prefix('products');
 
 };
 

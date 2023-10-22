@@ -3,6 +3,7 @@ import { UserEntity } from '../../domain/entities/user.entity';
 
 
 const UserSchema = new Schema<UserEntity>({
+    id: { type: String, require: true },
     userName: String,
     name: String,
     email: { type: String, unique: true },

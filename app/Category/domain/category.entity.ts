@@ -1,4 +1,4 @@
-export interface RoleEntity {
+export interface CategoryEntity {
     id?: string;
     name: string;
     status?: boolean;

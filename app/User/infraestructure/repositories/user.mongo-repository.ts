@@ -22,7 +22,7 @@ export class UserMongoRepository implements UserRepostory {
     };
     public getUserById = async (id: string): Promise<UserEntity | null> => {
         try {
-            const user = await UserModel.findById(id);
+            const user = await UserModel.findOne({ id });
             return user;
         } catch (error) {
             throw error;
@@ -30,7 +30,7 @@ export class UserMongoRepository implements UserRepostory {
     };
     public updateUser = async (id: string, updateUserDto: UpdateUserDto): Promise<UserEntity | null> => {
         try {
-            const userUpdated = await UserModel.findByIdAndUpdate(id, updateUserDto);
+            const userUpdated = await UserModel.findOneAndUpdate({ id }, updateUserDto);
             return userUpdated;
         } catch (error) {
             throw error;
@@ -38,7 +38,7 @@ export class UserMongoRepository implements UserRepostory {
     };
     public deleteUser = async (id: string): Promise<UserEntity | null> => {
         try {
-            const user = await UserModel.findByIdAndUpdate(id, { status: false }, { new: true });
+            const user = await UserModel.findOneAndUpdate({ id }, { status: false }, { new: true });
             return user;
         } catch (error) {
             throw error;

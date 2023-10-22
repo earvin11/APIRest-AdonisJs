@@ -1,6 +1,6 @@
-import { BaseModel, beforeCreate, column } from '@ioc:Adonis/Lucid/Orm'
-import { GenerateUuid } from 'App/Shared/adapters/uuid.adapter';
+import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
 import { DateTime } from 'luxon';
+import RolePgModel from 'App/Role/infraestructure/models/role.postgre-model';
 
 export default class User extends BaseModel {
   // Indique al modelo que utilice una conexión de base de datos
@@ -26,12 +26,12 @@ export default class User extends BaseModel {
   @column()
   public img: string;
 
-  @column()
-  public role: string;
+  // @column()
+  // public role: string;
 
   // //TODO:
-  // @hasOne(() => RolePgModel)
-  // public role: HasOne<typeof RolePgModel>;
+  @belongsTo(() => RolePgModel)
+  public role: BelongsTo<typeof RolePgModel>;
 
   @column()
   public status: boolean;
@@ -42,8 +42,8 @@ export default class User extends BaseModel {
   @column.dateTime({ autoCreate: true, autoUpdate: true })
   public updatedAt: DateTime;
 
-  @beforeCreate()// Reemplaza el id por uuid
-  public static assignUuid(user: User) {
-    user.id = new GenerateUuid().uuid;
-  }
+  // @beforeCreate()// Reemplaza el id por uuid
+  // public static assignUuid(user: User) {
+  //   user.id = new GenerateUuid().uuid;
+  // }
 };

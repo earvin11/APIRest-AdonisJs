@@ -13,6 +13,9 @@ export default class extends BaseSchema {
       table.string('password')
       table.string('img')
       table.string('role')
+        .unsigned()
+        .references('role.id')
+        .onDelete('CASCADE')
       table.boolean('status')
 
       /**
