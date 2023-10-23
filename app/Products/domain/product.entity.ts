@@ -5,3 +5,5 @@ export interface ProductEntity {
     isAvaliable?: boolean;
     quantity: number;
 };
+
+export type UpdateProductDto = Pick<ProductEntity, 'category' | 'name' | 'quantity'>;

@@ -3,3 +3,5 @@ export interface CategoryEntity {
     name: string;
     status?: boolean;
 };
+
+export type UpdateCategoryDto = Pick<CategoryEntity, 'name'>;
