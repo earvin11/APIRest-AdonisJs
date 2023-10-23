@@ -8,6 +8,8 @@ const UserRoutes = async() => {
     Route.get('/:id', userController.show);
     Route.patch('/:id', userController.update);
     Route.delete(':id', userController.destroy);
+    //AUTH
+    Route.post('auth/login', userController.login);
 };
 
 export default UserRoutes;

@@ -1,6 +1,6 @@
-import { BaseModel, BelongsTo, belongsTo, column } from '@ioc:Adonis/Lucid/Orm'
+import { BaseModel, column } from '@ioc:Adonis/Lucid/Orm'
 import { DateTime } from 'luxon';
-import RolePgModel from 'App/Role/infraestructure/models/role.postgre-model';
+import { TypeUser } from 'App/User/domain/entities/user.entity';
 
 export default class User extends BaseModel {
   // Indique al modelo que utilice una conexión de base de datos
@@ -26,12 +26,12 @@ export default class User extends BaseModel {
   @column()
   public img: string;
 
-  // @column()
-  // public role: string;
+  @column()
+  public role: TypeUser;
 
-  // //TODO:
-  @belongsTo(() => RolePgModel)
-  public role: BelongsTo<typeof RolePgModel>;
+  // // //TODO:
+  // @belongsTo(() => RolePgModel)
+  // public role: BelongsTo<typeof RolePgModel>;
 
   @column()
   public status: boolean;

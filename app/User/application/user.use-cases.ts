@@ -29,4 +29,9 @@ export class UserUseCases {
         const user = await this.userRepository.deleteUser(id);
         return user;
     };
+    // AUTH
+    public loginUser = async(loginDto: Pick<UserEntity, 'email' | 'password'>) => {
+        const user = await this.userRepository.loginUser(loginDto);
+        return user;
+    }
 };

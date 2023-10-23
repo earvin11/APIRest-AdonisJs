@@ -1,31 +1,27 @@
 import { HttpContext } from '@adonisjs/core/build/standalone';
-import Hash from '@ioc:Adonis/Core/Hash'
 import { UserUseCases } from '../application/user.use-cases';
-// import Database from '@ioc:Adonis/Lucid/Database';
 
 export class UserController {
     constructor(
         private readonly userUseCases: UserUseCases
-    ) {}
+    ) {};
 
     public store = async({ request, response }: HttpContext) => {
+        const {
+            userName,
+            name,
+            email,
+            password,
+            img,
+            role
+        } = request.body();
+
         try {
-            const {
-                userName,
-                name,
-                email,
-                password,
-                img,
-                role
-            } = request.body();
-
-            const hashedPassword = await Hash.make(password);
-
             const newUser = await this.userUseCases.createUser({
                 userName,
                 name,
                 email,
-                password: hashedPassword,
+                password,
                 img,
                 role
             });
@@ -34,8 +30,7 @@ export class UserController {
             console.log(error);
             response.internalServerError({ message: 'Talk to administrator' });
         }
-    }
-
+    };
     public index = async({ response }: HttpContext) => {
         try {
             const users = await this.userUseCases.getAllUsers();
@@ -46,8 +41,7 @@ export class UserController {
             console.log(error);
             response.internalServerError({ message: 'Talk to administrator' });
         }
-    }
-
+    };
     public show = async({ request, response }: HttpContext) => {
         try {
             const { id } = request.params();
@@ -59,8 +53,7 @@ export class UserController {
             console.log(error);
             response.internalServerError({ message: 'Internal server error' });
         }
-    }
-
+    };
     public update = async({ request, response }: HttpContext) => {
         try {
             const { id } = request.params();
@@ -78,8 +71,7 @@ export class UserController {
             console.log(error);
             response.internalServerError({ message: 'Internal server error' });
         }
-    }
-
+    };
     public destroy = async({ request, response }: HttpContext) => {
         try {
             const id = request.params().id;
@@ -91,6 +83,18 @@ export class UserController {
             console.log(error);
             response.internalServerError({ message: 'Internal server error' });
         }
-    }
+    };
+    //AUTH
+    public login = async({ request, response }: HttpContext) => {
+        const { email, password } = request.body();
+        try {
+            const login = await this.userUseCases.loginUser({ email, password });
+            if(!login) return response.unauthorized('Unauthorized');
 
+            response.ok(login);
+        } catch (error) {
+            console.log(error);
+            response.internalServerError({ message: 'Talk to administrator' });
+        }
+    };
 };

@@ -5,14 +5,14 @@ export class Product implements ProductEntity {
     id?: string;
     name: string;
     category: string;
-    isAvaliable: boolean;
+    isAvailable: boolean;
     quantity: number;
 
     constructor(product: ProductEntity) {
         this.id = new GenerateUuid().uuid;
         this.name = product.name;
         this.category = product.category;
-        this.isAvaliable = true;
+        this.isAvailable = true;
         this.quantity = product.quantity;
     }
 };
